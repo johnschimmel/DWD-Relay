@@ -2,10 +2,16 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io.connect('http://localhost:5000');
+  var socket = io.connect();
   socket.on('news', function (data) {
     console.log(data);
     socket.emit('my other event', { my: 'data' });
   });
+  
+  socket.on('relay', function(data){
+      console.log('relay');
+      console.dir(data);
+      
+  })
 </script>
 
