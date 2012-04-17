@@ -1,8 +1,14 @@
 module.exports = {
     
-    index : function(request, response) {
+    chat : function(request, response) {
         
-        response.render("index.html");
+        response.render("chat.html");
+        
+    },
+    
+    users_w_sound : function(request, response) {
+        
+        response.render("users_w_sound.html");
         
     }
     

@@ -1,0 +1,38 @@
+<style>
+
+div#usersInfo { 
+    width:50%;
+    float:left;
+}
+
+
+img#cow {
+    width:300px;
+    
+}
+</style>
+<div id="usersInfo">
+
+    <div id="setUsername">
+        <h2>Nickname</h2>
+        <input type="text" id="nickname" placeholder="Enter a nickname">
+        <input type="button" id="nicknameBtn" value="Set nickname">
+
+    </div>
+
+    <div id="userListContainer">
+        <h2>User List <span id="userCount">0</span></h2>
+        <ul id="userList"></ul>
+    </div>
+
+</div>
+
+<div id="cow">
+    <img src="http://www.mad-cow.net/images/cow.jpg" id="cow">
+</div>
+
+<audio src="/audio/cowmoo.mp3" id="audioCowMoo" preload="auto"></audio>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/usersSound.js" type="text/javascript"></script>

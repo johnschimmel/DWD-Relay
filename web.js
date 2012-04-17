@@ -7,6 +7,8 @@ var express = require('express')
 var app = module.exports = express.createServer();
 global.app = app;
 
+var users = [];
+
 // Socket.IO server
 var io = require('socket.io').listen(app);
 
@@ -17,11 +19,47 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-      socket.emit('relay', { msg : 'Got it', relay : data});
-    console.log(data);
-  });
+
+    socket.on('chat msg', function(msg) {
+        io.sockets.emit('new msg', msg);
+    });
+    
+    
+
+    socket.on('set nickname', function(name){
+      users.push(name);
+
+      socket.set('nickname', name, function() {
+          console.log("user name : " + name);
+          socket.emit('all users', users);
+      });
+  
+      //broadcast new user name
+      io.sockets.emit('new user', name);
+
+    });
+  
+  
+    socket.on('play sound', function(soundname){
+        
+        if (soundname == 'cow') {
+            io.sockets.emit('moo');
+        }
+        
+    })
+    socket.on('disconnect', function () {
+      socket.get('nickname', function(err, nickname){
+          for(i=0;i<users.length;i++){
+              if (users[i] == nickname) {
+                  users.remove(i);
+              }
+          };
+      
+          io.sockets.emit('user disconnected', nickname);
+      
+      });
+    });
+
 });
 
 // Configuration
@@ -56,3 +94,10 @@ app.listen(port, function() {
   console.log('Listening on ' + port);
 
 });
+
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};

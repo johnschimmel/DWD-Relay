@@ -4,6 +4,7 @@ var main = require("./routes/main");
 
 module.exports = function(app) {
     
-    app.get('/', main.index);
+    app.get('/chat', main.chat);
+    app.get('/advanced', main.users_w_sound);
 
 }
