@@ -1,6 +1,6 @@
 var socket;
 var users = []; // array will hold all users names
-var nickname;
+var nickname = null;
 
 var mouseX, mouseY;
 
@@ -68,15 +68,38 @@ jQuery(document).ready(function(){
     })
     
     
+    //track mouse 
+    jQuery(document).mousemove(function(e){
+        mouseX = e.pageX;
+        mouseY = e.pageY;
+        jQuery('li#'+nickname).css('position','absolute').css('left',mouseX).css('top', mouseY);
+    });
     
-});
+    // send mouse positions every half second
+    setInterval(function(){
+        
+        // if nickname is set, emit the new position
+        if (nickname) {
+            //send out mouse x and y
+            socket.emit("mouse update", { x:mouseX,  y:mouseY } );
+        }
+    },500);
+    
+    // receive new mouse positions for other users
+    socket.on('mouse update', function(data){
+        
+        if (data.nickname == nickname) {
+            // skip it, it is you! you position is updated above in the .mousemove function
+            
+        } else {
+            //console.log("new mouse position for " + data.nickname + ". " + data.x + ", "+data.y);
+            jQuery('li#'+data.nickname).css('position','absolute').css('left', data.x).css('top',data.y);
+        }
+        
+    })
 
-// track mouse movements
-jQuery(document).mousemove(function(e){
-    mouseX = e.pageX;
-    mouseY = e.pageY;
     
-    jQuery("")
+    
 });
 
 

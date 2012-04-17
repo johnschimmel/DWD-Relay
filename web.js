@@ -41,12 +41,20 @@ io.sockets.on('connection', function (socket) {
   
   
     socket.on('play sound', function(soundname){
-        
         if (soundname == 'cow') {
             io.sockets.emit('moo');
         }
-        
+    });
+    
+    // receive mouse updates for a 
+    socket.on('mouse update', function(data){
+        socket.get('nickname', function(err, nickname){
+
+            data['nickname'] = nickname;
+            io.sockets.emit('mouse update', data);
+        })
     })
+    
     socket.on('disconnect', function () {
       socket.get('nickname', function(err, nickname){
           for(i=0;i<users.length;i++){
