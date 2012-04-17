@@ -95,7 +95,7 @@ jQuery(document).ready(function(){
             
         } else {
             //console.log("new mouse position for " + data.nickname + ". " + data.x + ", "+data.y);
-            jQuery('li#'+data.nickname).css('position','absolute').css('left', data.x).css('top',data.y);
+            jQuery('li#'+data.nickname).animate({'left':data.x, 'top':data.y} );
         }
         
     })
