@@ -12,6 +12,9 @@ jQuery(document).ready(function(){
     // connect to the socket.io server
     socket = io.connect();
     
+    
+    /******** USER MANAGEMENT ********/
+    
     // whenever a new user message is received
     socket.on('new user', function(name){
         
@@ -52,23 +55,30 @@ jQuery(document).ready(function(){
         refreshUserList();
     });
     
+    /******** END USER MANAGEMENT ********/
+    
+    
+    /******** SOUNDS ********/
     
     // clickable cow
     jQuery("img#cow").on('click', function(){
         socket.emit('play sound', 'cow');
     })
     
-    // moo the cow
+    // Socket.io says 'moo the cow'
     socket.on('moo', function(){
         // use jQuery selector to find #mooCow, pull first item out of array
         // alternative way to write document.getElementById('audioCowMoo').play()
         jQuery("#audioCowMoo")[0].play();
         console.log("playing sound : cow");
         
-    })
+    });
+    /******** END SOUNDS ********/
     
     
-    //track mouse 
+    /******** MOUSE TRACKING ********/
+    
+    //track mouse, update local nickname position
     jQuery(document).mousemove(function(e){
         mouseX = e.pageX;
         mouseY = e.pageY;
@@ -77,7 +87,7 @@ jQuery(document).ready(function(){
         jQuery('li#'+nickname).css('position','absolute').css('left',mouseX+15).css('top', mouseY+10);
     });
     
-    // send mouse positions every half second
+    // send mouse positions every half second to server
     setInterval(function(){
         
         // if nickname is set, emit the new position
@@ -98,8 +108,9 @@ jQuery(document).ready(function(){
             jQuery('li#'+data.nickname).animate({'left':data.x, 'top':data.y} );
         }
         
-    })
+    });
 
+    /********  END MOUSE TRACKING ********/
     
     
 });

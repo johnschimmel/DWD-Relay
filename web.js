@@ -19,10 +19,20 @@ io.configure(function () {
 });
 
 io.sockets.on('connection', function (socket) {
-
-    socket.on('chat msg', function(msg) {
-        io.sockets.emit('new msg', msg);
+    
+    
+    socket.on('new chat msg', function(msg) {
+        
+        //broadcast new chat message to everyone
+        io.sockets.emit('new chat msg', msg);
     });
+    
+    socket.on('background color set', function(color) {
+        
+        //broadcast new color to everyone
+        io.sockets.emit('background color update', color);
+        
+    })
     
     
 

@@ -1,14 +1,36 @@
+<style>
 
+p.chatMsg {
+    padding:4px;
+    background:lightblue;
+    margin:4px;
+}
+</style>
 <div id="chatArea">
 
-    <div id="chatLog">
-    </div>
-
-    <div id="chatNewMessage">
-        <input type="text" id="chatmsg" placeholder="Type a message here">
-        <input type="button" id="chatMsgBtn">
+    <div>
+        <div id="chatNewMessage" style="width:50%;float:left;">
+            <h3>Chat</h3>
+            <input type="text" id="chatmsg" size="25" placeholder="Type a message here">
+            <input type="button" id="chatMsgBtn" value="Sent message">
         
+            &nbsp;&nbsp; <!-- html spacers -->
+        </div>
+    
+        <div id="colorContainer" style="width:50%; float:left;">
+            <h3>Change background color</h3>
+            <input type="text" id="colorTextbox" size="25" placeholder="Type color or hex value">
+            <input type="button" id="colorBtn" value="Change background color">
+            <br>
+            Current color: <span id="currentColor">white</span>
+            <br><br>
+        </div>
+
     </div>
+    
+    <hr>
+    <!-- chat messages will display here -->
+    <div id="chatLog"></div>
 
 </div>
 
