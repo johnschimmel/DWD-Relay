@@ -7,7 +7,7 @@ var express = require('express')
 var app = module.exports = express.createServer();
 global.app = app;
 
-var users = [];
+var users = []; // this array will keep track of users on the /advanced demo
 
 // Socket.IO server
 var io = require('socket.io').listen(app);
@@ -19,6 +19,9 @@ io.configure(function () {
 });
 
 require('./socketIOEvents').configureSocketIOEvents(io);
+
+// end socket.io configuration
+
 
 // Configuration
 app.configure(function(){
