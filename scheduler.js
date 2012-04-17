@@ -1,1 +1,1 @@
-module.exports = { console.log("ok this has run"); }
+console.log("ok this has run");
