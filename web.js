@@ -15,18 +15,19 @@ var io = require('socket.io').listen(app);
 // not using True Websockets, not available on Heroku - will use long polling until then
 io.configure(function () { 
   io.set("transports", ["xhr-polling"]); 
-  io.set("polling duration", 10); 
+  io.set("polling duration", 10); // long polling connection for 10 seconds
 });
 
 io.sockets.on('connection', function (socket) {
     
-    
+    // New Chat Message received from Client
     socket.on('new chat msg', function(msg) {
         
         //broadcast new chat message to everyone
         io.sockets.emit('new chat msg', msg);
     });
     
+    // New Background color received from client
     socket.on('background color set', function(color) {
         
         //broadcast new color to everyone
@@ -35,10 +36,14 @@ io.sockets.on('connection', function (socket) {
     })
     
     
-
+    // Socket.io events for /advanced 
+    
+    // client has set username
     socket.on('set nickname', function(name){
-      users.push(name);
+        
+      users.push(name); // put nickname in users array
 
+      // set the nickname for this specific user
       socket.set('nickname', name, function() {
           console.log("user name : " + name);
           socket.emit('all users', users);

@@ -28,6 +28,7 @@ jQuery(document).ready(function() {
         // update the value of the colorTextbox
         jQuery('#currentColor').html(color);
         
+        // update the BODY background-color css property
         jQuery('body').css('background-color',color);
         
     })
@@ -49,9 +50,12 @@ var sendChatMsg = function(){
 
 var updateBackgroundcolor = function() {
     
+    // get the color from the textbox
     newColor = jQuery("#colorTextbox").val();
     
     // send new color to server
     socket.emit('background color set', newColor);
     
+    // clear the color textbox
+    jQuery("#colorTextbox").val('');
 }
