@@ -72,7 +72,9 @@ jQuery(document).ready(function(){
     jQuery(document).mousemove(function(e){
         mouseX = e.pageX;
         mouseY = e.pageY;
-        jQuery('li#'+nickname).css('position','absolute').css('left',mouseX).css('top', mouseY);
+        
+        // reposition nickname to match mouse position + a little offset
+        jQuery('li#'+nickname).css('position','absolute').css('left',mouseX+15).css('top', mouseY+10);
     });
     
     // send mouse positions every half second
